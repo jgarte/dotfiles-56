@@ -1,13 +1,11 @@
 [Default Applications]
 text/x-shellscript=editor.desktop
 text/plain=editor.desktop
-text/html=firefox.desktop
 image/png=nsxiv.desktop
 image/jpeg=nsxiv.desktop
+image/gif=nsxiv.desktop
 video/x-matroska=mpv.desktop
 video/mp4=mpv.desktop
 audio/mpeg=mpv.desktop
 audio/x-wav=mpv.desktop
-image/gif=mpv.desktop
 inode/directory=lf.desktop
-
