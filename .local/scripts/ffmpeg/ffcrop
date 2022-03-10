@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+input=$1
+name=${input%.*}
+format=${input#*.}
+crop=$(ffmpeg -i $name.$format -t 1 -vf cropdetect -f null - 2>&1 | awk '/crop/ { print $NF }' | tail -1)
+ffmpeg -i $name.$format -vf $crop ${name}_cropped.$format

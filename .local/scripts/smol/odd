@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo 2
+for i in {0..16}; do
+	n=${x:-2}
+	x=$((n*2))
+  y=$((x/2+x))
+  echo $(tput setaf 8) $x
+  echo $(tput setaf 15) $y
+done

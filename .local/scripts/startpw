@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+if pgrep -x pipewire >/dev/null; then
+  >&2 echo "pipewire already running"
+else
+  pipewire & pipewire-pulse
+fi

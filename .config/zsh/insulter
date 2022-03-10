@@ -1,0 +1,24 @@
+command_not_found_handler () {
+    local urretarded=(
+        "i know you are stupid but not this stupid"
+        "think about what you type next time"
+        "i don't get paid enough for this"
+        "i thought you were good at this"
+        "i suggest going to windows now"
+        "don't make typos next time"
+        "stop being retarded"
+        "STOP MAKING TYPOS"
+        "wtf are you doing"
+        "stop making typos"
+        "i'm dissapointed"
+        "plz uninstall"
+        "i hate you"
+        "nice job"
+        "you suck"
+        "nt nt"
+        "lol"
+    )
+    print -P "%F{1}%B%m%f%b: $(shuf -n 1 -e "${urretarded[@]}")"
+    return 127
+}
+

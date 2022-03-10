@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+set -x
+url='https://duckduckgo.com/?q=
+https://www.google.com/search?q=
+https://en.wikipedia.org/wiki/
+https://translate.google.com/?sl=auto&tl=id&text=
+https://www.urbandictionary.com/define.php?term=
+https://www.merriam-webster.com/dictionary/
+https://yandex.com/images/
+https://words.bighugelabs.com/
+'
+
+engine=$(printf "$url" | rofi -dmenu -p "engine")
+[ -z "$engine" ] && exit 0
+
+query=$(echo '' | rofi -dmenu -p "search")
+[ -n "$query" ] && xdg-open "${engine}${query}" 2> /dev/null

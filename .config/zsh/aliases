@@ -1,0 +1,51 @@
+## color
+alias grep='grep --color=auto'
+alias dmesg='dmesg --color=always'
+[[ -f /usr/bin/grc ]] && c="grc" || c="" echo install grc idiot
+for prog in {ip,ps,ld,gcc,g++,fdisk,make,blkid,lspci,lsblk,findmnt,id}; do
+  alias $prog="$c $prog"
+done
+
+## flags
+alias cp='cp -v'
+alias mv='mv -v'
+alias rm='rm -v'
+alias md='mkdir -pv'
+alias df='$c df -Th --sync'
+alias du='$c du -h'
+alias exa='exa --color=always --group-directories-first'
+alias free='$c free -m'
+alias ping='$c ping'
+alias bat='bat --style numbers,header --theme ansi'
+
+## misc
+alias doas='doas '
+alias sudo='sudo '
+alias mkex='chmod a+x'
+alias mine='chown $USER:$USER -R'
+
+## lista
+alias ls='exa -aF  -s type'
+alias la='exa -lab -s type'
+alias lt='exa -aT  -s type'
+alias le='exa -lab -s time'
+alias lx='exa -lab -s type --no-time'
+alias ll='exa -lab -s type --no-user --no-permissions'
+alias lz='exa -lab -s size --no-user --no-time'
+lb(){ le $(/bin/which --skip-functions --skip-alias $1) }
+
+# misc
+alias rl='exec zsh'
+alias kwrwp='WINEPREFIX=~/.local/share/grapejuice/prefixes/player wineserver -k'
+
+## edit
+alias e='$EDITOR' 
+alias e-rc='e $ZDOTDIR/.zshrc' 
+alias e-env='e $HOME/.zshenv' 
+alias e-xres='cd $HOME/.config/X11 && e $XRESOURCES' 
+alias e-alias='e $HOME/.config/zsh/aliases'
+edit() { $EDITOR $(which $1) }
+
+## imagemagick
+imgmgck_splitgif() { convert -coalesce $1.gif out_%05d.png }
+imgmgck_pixel() { convert $1 -interpolate Nearest -filter point -resize 48 output.png }

@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+## volume control
+# requires dunst, awk, pactl
+
+id="991049"
+sink="@DEFAULT_SINK@"
+
+get_mute(){ pactl get-sink-mute $sink | awk '{print $2}' ;}
+get_vol(){ pactl get-sink-volume $sink | awk '{print $12}' ;}
+
+send_notif_vol()
+{ 
+	vol=$(get_vol)
+	dunstify -u low -r $id -h int:value:$vol "vol: $vol" 
+}
+
+send_notif_mute()
+{ 
+	[ $(get_mute) = yes ] && dunstify -u low -r $id -h int:value:0 "muted" || send_notif_vol
+}
+
+case $1 in
+	mute)
+		pactl set-sink-mute $sink toggle	
+	;;	
+
+	*)
+		pactl set-sink-volume $sink "$@" >/dev/null
+	;;
+esac
+
+send_notif_mute
+

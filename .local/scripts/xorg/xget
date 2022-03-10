@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+INFO="$(xprop)"
+PID="$(awk '/PID/ { print $3 }' <<< "$INFO")"
+WM_CLASS="$(awk -F'"' '/WM_CLASS/ { print $2", "$4 }' <<< "$INFO")"
+USAGE="$(ps_mem -p 847 | awk 'NR==3 {print $1,$2,"+",$4,$5,"=",$7,$8}')"
+dunstify "$WM_CLASS" "$USAGE"

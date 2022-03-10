@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+## display each line leisurely
+[ -z "$1" ] && exit 1
+
+for n in $(seq $(wc -l < $1)); do
+  sed -n ${n}p $1
+  sleep ${2:-0.046}
+done
+

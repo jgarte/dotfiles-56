@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+echo -e '\u001B' | xclip -sel clip

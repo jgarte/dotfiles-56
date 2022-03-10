@@ -1,0 +1,39 @@
+/* remove divider gradient */
+.main-rootlist-rootlistDividerGradient {
+  display: none;
+}
+.main-likedSongsButton-likedSongsIcon,
+.main-yourEpisodesButton-yourEpisodesIcon {
+  background: var(--spice-text) !important;
+  border-radius: unset !important;
+  color: var(--spice-main) !important;
+}
+/* Remove Upgrade Button, User Name */
+.main-topBar-UpgradeButton,
+.main-userWidget-displayName {
+  display: none
+}
+
+
+.main-entityHeader-backgroundColor,
+.main-actionBarBackground-background,
+.main-topBar-overlay {
+  background-color: unset !important
+}
+
+.main-entityHeader-overlay {
+  background: unset
+}
+
+.main-actionBarBackground-background {
+  background-image: unset
+}
+
+.main-entityHeader-shadow {
+  box-shadow: unset
+}
+
+.main-topBar-background {
+  background-color: #181818 !important
+}
+

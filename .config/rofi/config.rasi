@@ -1,0 +1,65 @@
+configuration {
+  modi:             "window,drun,ssh,combi,filebrowser";
+  font:             "JetBrainsMono Nerd Font 12";
+  fixed-num-lines:  true;
+  show-icons: 	    false;
+  combi-modi:       "drun,run";
+  terminal:         "st";
+  display-run:      "$";
+  display-combi:    "&";
+  display-drun:     ">";
+  display-ssh:      "%";
+}
+
+@theme              "/dev/null"
+
+* {
+  bg:               #161821;
+  fg:               #d2d4de;
+  gray:             #6b7089;
+  accent:           #84a0c6;
+  button:           #91acd1;
+  
+  background-color: @bg;
+  text-color:       @fg;
+}
+
+window {
+  padding:          16px;
+  width:            40%;
+  height:           30%;
+  border:           2px;
+  border-color:     @accent;
+  border-radius:    0px;
+}
+
+entry {
+  padding:          4px;
+  text-color:       @fg;
+  margin:           6px 10px 10px 10px;
+}
+
+element-text {
+    background-color: #00000000;
+    text-color:       inherit;
+}
+
+listview {
+    columns:        1;
+    lines:          7;
+}
+
+prompt {
+    text-color: @fg;
+    padding: 10px 0px 0px 0px;
+}
+
+element {
+  padding: 4px;
+}
+
+element.selected {
+  background-color: @fg;
+  text-color: @bg;
+}
+

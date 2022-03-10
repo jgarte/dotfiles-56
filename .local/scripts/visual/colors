@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+col_norm() { for i in {0..7}; do printf '\e[4%sm%s\e[0m' "$i" " 0$i "; done ; }
+col_bright() { for i in {0..1}; do printf '\e[10%sm%s\e[0m' "$i" " 0$((i+8)) "; done ; }
+col_bright2() { for i in {2..7}; do printf '\e[10%sm%s\e[0m' "$i" " $((i+8)) "; done ; }
+printf "\n%s\n%s\n\n" "$(col_norm)" "$(col_bright)$(col_bright2)"

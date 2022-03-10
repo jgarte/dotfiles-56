@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+while IFS=':k ' read -r name val kb; do
+  case $name in
+    MemAvailable) mem_avail=$val ;;
+    MemTotal) mem_total=$val ;;
+  esac
+done < /proc/meminfo
+printf '%s\n' "$((($mem_total - $mem_avail) / 1024))"
+
+mem_usage_ps() {
+	ps -u $USER -wo rss=,comm= --sort -rss | while read -r rss comm ; do echo $((rss/1024))"MB -" $comm; done | head -10
+}
+
+case $BLOCK_BUTTON in
+    1) dunstify "$(mem_usage_ps)" ;;
+esac

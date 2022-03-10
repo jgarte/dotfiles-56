@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -x
+declare -a repos=(
+alpha.de.repo.voidlinux.org/
+repo-fi.voidlinux.org/
+mirrors.servercentral.com/voidlinux/
+repo-us.voidlinux.org/
+mirror.ps.kz/voidlinux/
+mirrors.bfsu.edu.cn/voidlinux/
+mirrors.cnnic.cn/voidlinux/
+mirrors.tuna.tsinghua.edu.cn/voidlinux/
+mirror.sjtu.edu.cn/voidlinux/
+void.webconverger.org/
+mirror.aarnet.edu.au/pub/voidlinux/
+ftp.swin.edu.au/voidlinux/
+void.cijber.net/
+ftp.dk.xemacs.org/voidlinux/
+mirrors.dotsrc.org/voidlinux/
+quantum-mirror.hu/mirrors/pub/voidlinux/
+voidlinux.mirror.garr.it/
+mirror.fit.cvut.cz/voidlinux/
+tp.debian.ru/mirrors/voidlinux/
+mirror.yandex.ru/mirrors/voidlinux/
+cdimage.debian.org/mirror/voidlinux/
+ftp.acc.umu.se/mirror/voidlinux/
+ftp.lysator.liu.se/pub/voidlinux/
+ftp.sunet.se/mirror/voidlinux/
+void.sakamoto.pl/
+mirror.clarkson.edu/voidlinux/
+)
+
+rm output.file
+
+pkg=current/glibc-2.32_2.x86_64.xbps
+limit=1048576
+for repo in ${repos[@]}; do
+  printf "$repo\n"
+  dl1="$(curl -Y $limit --progress-bar -o/dev/null $repo/$pkg --write-out %{speed_download})"
+  dl2="$(curl -Y $limit --progress-bar -o/dev/null $repo/$pkg --write-out %{speed_download})"
+  dl3="$(curl -Y $limit --progress-bar -o/dev/null $repo/$pkg --write-out %{speed_download})"
+  total=$(($dl1 + $dl2 + $dl3))
+  dl=$(($total / 3))
+  printf "%-10s - %s\n" "$dl" "$repo" | tee -a output.file
+done
+

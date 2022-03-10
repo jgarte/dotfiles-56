@@ -1,0 +1,65 @@
+[global]
+    width = (0,360)
+    height = 200
+    origin = top-right
+    offset = 20x20
+
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+
+    separator_height = 2
+    padding = 8
+    horizontal_padding = 8
+    text_icon_padding = 8
+
+    frame_width = 2
+    frame_color = "#42717b"
+
+    font = JetBrains Mono Nerd Font 12
+
+    # Possible values are "top", "center" and "bottom".
+    vertical_alignment = center
+
+    # Possible values are "start", "middle" and "end".
+    ellipsize = middle
+    show_indicators = yes
+
+    icon_position = left
+    min_icon_size = 105
+    max_icon_size = 105
+    icon_path = /dev/null
+
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = open_url, close_all
+    mouse_right_click = context, close_all
+
+[experimental]
+    per_monitor_dpi = false
+
+[urgency_low]
+    background = "$(xquery background)"
+    foreground = "$(xquery foreground)"
+    timeout = 10
+
+[urgency_normal]
+    background = "$(xquery background)"
+    foreground = "$(xquery foreground)"
+    timeout = 10
+
+[urgency_critical]
+    background = "$(xquery background)"
+    foreground = "$(xquery color1)"
+    timeout = 0
+
+[spotify]
+    appname = "Spotify"
+    foreground = "$(xquery color2)"
+    format = "<b>%s</b>\n<span foreground='$(xquery foreground)'>%b</span>"
+    frame_color = "$(xquery color2)"
+    highlight = "$(xquery color2)"
+    timeout = 8
+    script = "memur"
+
+# vim: ft=cfg

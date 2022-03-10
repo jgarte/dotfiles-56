@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+kill -9 "$(xprop _NET_WM_PID | awk '{ print $3 }')"

@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -x
+
+engine=$(rofi -dmenu -p "enter file path")
+[ -z "$engine" ] && exit 0
+
+query=$(echo '' | rofi -dmenu -p "search")
+[ -n "$query" ] && xdg-open "${engine}${query}" 2> /dev/null

@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+# TODO: use stdin or - idk i just learnt its existence
+color=$(xcolor)
+printf $color | xclip -sel c
+convert -size 256x256 xc:$color /tmp/color.png
+dunstify -I /tmp/color.png "$color"
+rm /tmp/color.png

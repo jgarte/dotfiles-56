@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+## stolen.
+i=1
+sp="/-\|"
+
+spin() {
+  while true; do
+    printf "\b${sp:i++%${#sp}:1}"
+    sleep 0.15
+  done
+}
+
+echo -n ' ' && spin
