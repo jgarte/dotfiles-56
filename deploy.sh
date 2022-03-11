@@ -8,7 +8,6 @@ XDG_DATA_HOME="$home/.local/share"
 helper() {
   mkdir -pv $1
   for file in $(find $2 -type f); do
-    sleep 0.04
     [ -f $1/${file##*/} ] && rm -rfv $1/${file##*/}
     ln -sfv $path/$file $1/${file##*/}
   done
@@ -32,7 +31,6 @@ helper $XDG_DATA_HOME/txt misc/txt
 echo -e "\e[1m -- configs \e[0m"
 mkdir -pv $XDG_CONFIG_HOME
 for dir in config/*; do
-  sleep 0.02
   [ -d $XDG_CONFIG_HOME/${dir##*/} ] && rm -rfv $XDG_CONFIG_HOME/${dir##*/}
   case ${dir##*/} in
     spicetify)

@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-tool=/home/wael/.local/scripts/xgen/shgen
-
-xrdb -load ~/.config/X11/xresources
-xsetroot -solid $(xrdb -query | awk '/background/ {print $2}')
-$tool ~/.config/xgen/dunst ~/.config/dunst/dunstrc

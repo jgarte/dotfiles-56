@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
-# TODO: use stdin or - idk i just learnt its existence
-color=$(xcolor)
+color=$(grabc)
 printf $color | xclip -sel c
 convert -size 256x256 xc:$color /tmp/color.png
-dunstify -I /tmp/color.png "$color"
+dunstify -I /tmp/color.png "$color" "copied to clipboard"
 rm /tmp/color.png

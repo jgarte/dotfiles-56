@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-set -x
-#tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | 
-tr -dc 'A-Za-z0-9!' </dev/urandom | 
-  head -c ${1:-60} | 
-  xclip -sel c &&
-  notify-send "randomly generated gibberish of 60 in length copied" -t 2000 

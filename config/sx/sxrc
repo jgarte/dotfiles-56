@@ -1,6 +1,7 @@
 rm ~/.x11.log
 xrdb -load $XRESOURCES
 pipewire & pipewire-pulse &
+entr xwallpaper --maximize ~/.config/wall.png <<< ~/.config/wall.png &
 disablemouseaccel
 xsetroot -solid $(xrdb -query | awk '/background/ {print $2}')
 nvidia-settings -l
