@@ -6,5 +6,4 @@ Xft.rgba:       rgb
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
-dwm.font: JetBrainsMono Nerd Font:size=12
-#include "/home/wael/.config/X11/gruvbox"
+#include "/home/wael/.config/X11/tokyodark"

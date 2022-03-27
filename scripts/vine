@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+mpv $XDG_DATA_HOME/txt/vine.m4a --force-window=no

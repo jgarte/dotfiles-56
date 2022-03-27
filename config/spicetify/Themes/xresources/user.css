@@ -13,8 +13,6 @@
 .main-userWidget-displayName {
   display: none
 }
-
-
 .main-entityHeader-backgroundColor,
 .main-actionBarBackground-background,
 .main-topBar-overlay {
@@ -31,9 +29,5 @@
 
 .main-entityHeader-shadow {
   box-shadow: unset
-}
-
-.main-topBar-background {
-  background-color: #181818 !important
 }
 

@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+## (for dwm) status info query
+# icons
+usage=
+mem=
+clock=
+cal=
+music=
+audio=墳
+# colors
+
+# vars
+id=641828
+
+print() {
+  printf "^C%s^%s ^d^%s \n" "$@"
+}
+
+cpu() {
+  read -r loadavg < /proc/loadavg
+  read -r temp < /sys/class/thermal/thermal_zone2/temp
+  print 4 "$usage" "${loadavg%%\ *}"
+
+  case $BLOCK_BUTTON in
+    1)
+      info="$(ps -u $USER -wo %cpu,comm --sort=-%cpu --no-headers | head -10)"
+      dunstify -r $id "$info"
+    ;;
+    3) 
+      read -r gov < /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+      read -r freq < /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+      read -r cstate < /sys/module/intel_idle/parameters/max_cstate
+      info="governor    - $gov
+frequency   - $((freq / 1000))MHz
+cstate      - $cstate
+temperature - ${temp%000}°C"
+      dunstify -r $id "$info"
+    ;;
+  esac
+}
+
+mem() {
+  while IFS=':k ' read -r n v _; do
+    case $n in
+      MemAvailable) a=$v ;;
+      MemTotal) t=$v ;;
+    esac
+  done < /proc/meminfo
+  p=$(calc "(($t-$a) / $t) * 100")
+  p=${p#*\~}
+  p=${p%.*}
+
+  print 2 $mem "$p%"
+
+  case $BLOCK_BUTTON in
+    1) 
+      info="$(ps -u $USER -wo rss=,comm= --sort -rss | while read -r rss comm ; do echo $((rss/1024))"MB -" $comm; done | head -10)"
+      dunstify -r $id "$info"
+    ;;
+  	3) dunstify -r $id "$((t/1024))MiB / $((a/1024))MiB" ;;
+  esac
+}
+
+gpu() {
+  get() {
+  	nvidia-settings -q "$1" -t
+  }
+  usg() {
+  	s=$(nvidia-settings -q GPUUtilization -t)
+  	u=${s#*$1=}
+  	printf "${u%%,*}%%"
+  }
+
+  print 5 $usage $(usg graphics)
+  print 5 $mem $(usg memory)
+
+  info="version        - $(get NvidiaDriverVersion)
+temperature    - $(get GPUCoreTemp)°C
+fan speed      - $(get GPUCurrentFanSpeed | tr '\n' ' ')
+memory         - $(get TotalDedicatedGPUMemory)MiB / $(get UsedDedicatedGPUMemory)MiB
+refresh rate   - $(get RefreshRate3 | tr '\n' ' ')
+resizable bar  - $(get GPUResizableBAR)
+PCIe usage     - $(usg PCIe)
+video usage    - $(usg video)
+memory usage   - $(usg memory)
+graphics usage - $(usg graphics)"
+
+  case $BLOCK_BUTTON in
+    3) dunstify -r $id "$info" ;;
+  esac
+}
+
+music() {
+  [ "$(playerctl -l 2>&1)" = "No players found" ] && exit
+  cmd="playerctl -p $(playerctl -l | grep -E 'spotify|ncspot')"
+  artist="$($cmd metadata --format '{{artist}}')"
+  title="$($cmd metadata --format '{{title}}')"
+  
+  case $BLOCK_BUTTON in
+    1) $cmd play-pause ;;
+    9) $cmd next       ;;
+    8) $cmd previous   ;;
+  	3)
+      icon="$($cmd metadata --format '{{mpris:artUrl}}')"
+  	  wget $icon -O /tmp/spotifyicon
+  	  dunstify -i /tmp/spotifyicon "$artist" "$title"
+    ;;
+  esac
+  
+  sleep 0.1 # ^^ processing time incase there was an action
+  
+  print 2 $music "$artist - $title"
+}
+
+case $1 in
+  cpu) cpu;;
+  gpu) gpu;;
+  mem) mem;;
+  music) music ;;
+  date)
+    date="$(date '+%a')"
+    print 14 $cal "${date,,}"
+    case $BLOCK_BUTTON in
+      1)
+		    cal=$(cal)
+  	    today=$(date +%d)
+  	    body=$(tail -n+2 <<< $cal)
+  	    dunstify -r $id "$(head -n1 <<< $cal)" "${body/$today/<b>$today</b>}"
+    esac
+  ;;
+  time) print 4 $clock "$(date '+%H:%M:%S')" ;;
+  audio)
+    case $BLOCK_BUTTON in
+      1) pavucontrol ;;
+      3) volctl mute ;;
+      5) volctl -5% ;;
+      4) volctl +5% ;;
+    esac
+    print 2 $audio "$(volctl getvol)" ;; 
+esac

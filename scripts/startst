@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+[ ! $(pgrep "${1%%\ *}") ] && while :; do st -t "${1%%\ *}" -e sh -c "$1"; done

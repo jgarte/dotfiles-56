@@ -2,11 +2,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-for dir in $(find ~/.local/scripts -type d); do
-  PATH=$PATH:$dir
-done
-
-export PATH="$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$XDG_DATA_HOME/npm/bin:$GOPATH/bin"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GOPATH="$XDG_DATA_HOME/go"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/bin/scripts:$CARGO_HOME/bin:$XDG_DATA_HOME/npm/bin:$GOPATH/bin"
 
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -21,8 +19,6 @@ export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export XRESOURCES="$XDG_CONFIG_HOME/X11/xresources"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export GOPATH="$XDG_DATA_HOME/go"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java

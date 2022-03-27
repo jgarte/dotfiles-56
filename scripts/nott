@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -x
+while read i; do
+  case $i in
+    *$1*) ;;
+    *) dunstify -r 46198 "$i" ;;
+  esac
+done

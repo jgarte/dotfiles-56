@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-TODAY=$(date '+%-d')
-HEAD=$(cal | head -n1)
-BODY=$(cal | tail -n+2 | sed -z "s|$TODAY|<b>$TODAY</b>|1")
-dunstify -h string:x-canonical-private-synchronous:calendar "$HEAD" "$BODY" -u NORMAL

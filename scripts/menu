@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+prompt() {
+  [ $(dmenu -i -p "?" <<< "nope
+sure") = sure ] || return 1
+}
+
+dwm() {
+  OPTS=("restart" "kill")
+  case $(printf '%s\n' "${OPTS[@]}" | dmenu -p "dwm") in
+    ${OPTS[0]}) pkill -SIGHUP dwm ;;
+    ${OPTS[1]}) prompt && pkill -SIGTERM dwm ;;
+  esac
+}
+
+kill() {
+  list="$(ps -au $USER -o '%p %c')"
+  pid="$(dmenu -p kill <<< ${list#*$'\n'})"
+  prompt && /usr/bin/kill -9 ${pid%\ *} && dunstify "$pid" "killed"
+}
+
+dev() {
+  avail=$(:|evtest 2>&1)
+  avail="${avail%*$'\n'Select*}"
+  avail="${avail#*devices:$'\n'*}"
+  # replace tab with space cuz dmenu cant see it
+  avail="${avail//$'\t'/ }"
+  dev=$(dmenu -p dev <<< "$avail")
+  dev=${dev%:*}
+  input-events 2>&1 ${dev#*nt} | nott SYN
+}
+
+search() {
+url='searx.be/?q=
+duckduckgo.com/?q=
+en.wikipedia.org/wiki/
+urbandictionary.com/define.php?term=
+google.com/search?q=
+merriam-webster.com/dictionary/
+'
+
+engine=$(dmenu -p "engine" <<< $url)
+[ -z "$engine" ] && exit 0
+
+query=$(:|dmenu -p "search")
+[ -n "$query" ] && xdg-open "https://${engine}${query}" 2> /dev/null
+}
+
+[ ! -z $1 ] && $1 || $(dmenu -p function <<< $(compgen -A function))

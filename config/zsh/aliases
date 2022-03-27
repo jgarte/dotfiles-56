@@ -1,49 +1,46 @@
 ## color
 alias grep='grep --color=auto'
 alias dmesg='dmesg --color=always'
-[[ -f /usr/bin/grc ]] && c="grc" || c="" echo install grc idiot
-for prog in {ip,ps,ld,gcc,g++,fdisk,make,blkid,lspci,lsblk,findmnt,id}; do
-  alias $prog="$c $prog"
-done
 
 ## flags
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
 alias md='mkdir -pv'
-alias df='$c df -Th --sync'
-alias du='$c du -h'
+alias df='df -Th --sync'
+alias du='du -h'
 alias exa='exa --color=always --group-directories-first'
-alias free='$c free -m'
-alias ping='$c ping'
+alias free='free -m'
 alias bat='bat --style numbers,header --theme ansi'
 
 ## misc
 alias doas='doas '
-alias sudo='sudo '
-alias mkex='chmod a+x'
+alias sudo='doas '
+alias mkex='chmod -v a+x'
 alias mine='chown $USER:$USER -R'
 
+# shortcuts
+alias rf='rm -rf'
+
 ## lista
-alias ls='exa -aF  -s type'
-alias la='exa -lab -s type'
-alias lt='exa -aT  -s type'
-alias le='exa -lab -s time'
-alias lx='exa -lab -s type --no-time'
-alias ll='exa -lab -s type --no-user --no-permissions'
-alias lz='exa -lab -s size --no-user --no-time'
-lb(){ le $(/bin/which --skip-functions --skip-alias $1) }
+alias ls='exa -aF  -s type'           # list files in directory 
+alias la='exa -lab -s type --no-time' # list files with their permissions, owned user, size
+alias le='exa -lab -s type'           # list files with their permissions, owned user, size, last modified
+alias lu='exa -lab -s time'           # same as above but sort by last modified
+alias tree='exa -aT  -s type'
+lb() {
+  exa -lab -s time $(/bin/which --skip-functions --skip-alias $1)
+}
 
 # misc
 alias rl='exec zsh'
 alias kwrwp='WINEPREFIX=~/.local/share/grapejuice/prefixes/player wineserver -k'
+alias qmkflash='doas qmk flash --keyboard idobao/id75/v1 --keymap wael'
+alias qmkkeymap='qmk json2c keyboards/idobao/id75/keymaps/wael/*.json -o keyboards/idobao/id75/keymaps/wael/keymap.c'
 
 ## edit
-alias e='$EDITOR' 
-alias e-rc='e $ZDOTDIR/.zshrc' 
-alias e-env='e $HOME/.zshenv' 
-alias e-xres='cd $HOME/.config/X11 && e $XRESOURCES' 
-alias e-alias='e $HOME/.config/zsh/aliases'
+alias e='$EDITOR'
+alias e.alias='e $HOME/.config/zsh/aliases'
 edit() { $EDITOR $(which $1) }
 
 ## imagemagick

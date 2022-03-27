@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+case $1 in
+	exec) /bin/ls $(which $2) | entr sh -c "clear && $(which $2)";;
+  read) entr -p tail -f $2 <<< $2 ;;
+esac

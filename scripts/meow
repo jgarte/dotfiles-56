@@ -1,0 +1,7 @@
+echo meow
+sleep 1
+echo eow
+sleep 1
+echo ow
+sleep 1
+

@@ -1,8 +1,8 @@
 local opt = vim.opt
 
 -- functionality
-opt.title         = true
-opt.wrap          = false
+opt.title         = false
+opt.wrap          = true 
 opt.mouse         = "a"
 opt.clipboard     = "unnamedplus"
 opt.guicursor     = ""
@@ -10,10 +10,8 @@ opt.guicursor     = ""
 -- tab
 opt.autoindent    = true
 opt.expandtab     = true
-opt.softtabstop   = 0
 opt.smarttab      = true
 -- opt.retab      = true
-opt.smartindent   = true
 opt.tabstop       = 2
 opt.shiftwidth    = 2
 

@@ -1,0 +1,3 @@
+-f bestvideo+bestaudio
+--restrict-filenames
+-o /data/dl/%(title)s.%(ext)s

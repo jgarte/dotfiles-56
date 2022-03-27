@@ -14,7 +14,9 @@ helper() {
 }
 
 echo -e "\e[1m -- scripts \e[0m"
-helper $home/.local/bin scripts
+mkdir -pv $home/.local/bin
+[ -d $home/.local/bin/scripts ] && rm -rf $home/.local/bin/scripts
+ln -sfv $path/scripts $home/.local/bin/scripts
 
 echo -e "\e[1m -- naked dots \e[0m"
 # doing this manually just to save a lil bit of time
@@ -31,14 +33,16 @@ helper $XDG_DATA_HOME/txt misc/txt
 echo -e "\e[1m -- configs \e[0m"
 mkdir -pv $XDG_CONFIG_HOME
 for dir in config/*; do
-  [ -d $XDG_CONFIG_HOME/${dir##*/} ] && rm -rfv $XDG_CONFIG_HOME/${dir##*/}
+  [ -d $XDG_CONFIG_HOME/${dir##*/} ] && rm -rf $XDG_CONFIG_HOME/${dir##*/}
   case ${dir##*/} in
     spicetify)
       mkdir -pv $XDG_CONFIG_HOME/spicetify
-      ln -sfv $path/$dir/Themes $XDG_CONFIG_HOME/${dir##*/}/Themes
+      ln -sf $path/$dir/Themes $XDG_CONFIG_HOME/${dir##*/}/Themes
     ;;
     *)
-      ln -sfv $path/$dir $XDG_CONFIG_HOME/${dir##*/}
+      ln -sf $path/$dir $XDG_CONFIG_HOME/${dir##*/}
     ;;
   esac
 done
+ln -sfv $path/config/mimeapps.list $home/.config/mimeapps.list
+ln -sfv $path/config/user-dirs.dirs $home/.config/user-dirs.dirs 

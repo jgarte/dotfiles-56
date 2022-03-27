@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-printf '%s%s\n' "$(cut -d ' ' -f1 /proc/loadavg)"
-
-case $BLOCK_BUTTON in
-  1) dunstify "$(ps -u $USER -wo %cpu,comm --sort=-%cpu --no-headers | head -10)" ;; 
-esac

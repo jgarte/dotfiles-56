@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# doesnt work
 INFO="$(xprop)"
 PID="$(awk '/PID/ { print $3 }' <<< "$INFO")"
 WM_CLASS="$(awk -F'"' '/WM_CLASS/ { print $2", "$4 }' <<< "$INFO")"
