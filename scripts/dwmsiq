@@ -18,7 +18,7 @@ print() {
 
 cpu() {
   read -r loadavg < /proc/loadavg
-  read -r temp < /sys/class/thermal/thermal_zone2/temp
+  read -r temp < /sys/class/thermal/thermal_zone1/temp
   print 4 "$usage" "${loadavg%%\ *}"
 
   case $BLOCK_BUTTON in
