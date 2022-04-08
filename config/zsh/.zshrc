@@ -16,8 +16,9 @@ stty stop undef
 
 setopt PROMPT_SUBST
 ZLE_RPROMPT_INDENT=0
-PROMPT="%~ %B%F{2}$ %f%b"
+PROMPT="%m %~ %B%F{2}$ %f%b"
 RPROMPT='$(zsh_cmdtime)%(?..%B%F{1} %?%b)'
+__zsh_title="$TERM"
 
 autoload -U compinit
 zstyle ':completion:*' menu select
@@ -26,12 +27,12 @@ compinit
 _comp_options+=(globdots)
 
 function precmd () {
-  print -Pn -- '\e]2;%n at %m in %~\a'
+  print -Pn -- '\e]2;$__zsh_title %~\a'
 }
 
 function preexec () {
   zsh_cmdtime_start=$(zsh_cmdtime_time)
-  print -Pn -- '\e]2;%n at %m in %~ %# ' && print -n -- "${(q)1}\a"
+  print -Pn -- '\e]2;$__zsh_title $ ' && print -n -- "${(q)1}\a"
 }
 
 if [[ "$((RANDOM % 16))" = 7 ]];

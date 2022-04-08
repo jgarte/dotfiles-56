@@ -13,7 +13,7 @@ getvol() {
 
 case $1 in
 	mute) pactl set-sink-mute $sink toggle ;;
-  getvol) getvol && echo $vol && exit ;;  
+  getvol) getvol && echo $vol && exit ;;
   *) pactl set-sink-volume $sink "$@" ;;
 esac
 

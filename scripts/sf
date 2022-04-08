@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 ## shitty linux fetch
-
+_st=$(date +%N)
 read -r hostname < /proc/sys/kernel/hostname
 read -r kernel < /proc/sys/kernel/osrelease
 read -r board < /sys/class/dmi/id/board_name
 read -r sys < /sys/class/dmi/id/sys_vendor
-
+board=${board% GAMING}
 # distro
 . /etc/os-release
 
@@ -17,11 +17,13 @@ done
 
 # uptime
 IFS=. read -r i _ < /proc/uptime
+d="$((i / 60 / 60 / 24))"
 h="$((i / 60 / 60 % 24))"
 m="$((i / 60 % 60))"
 up="$((i % 60))s"
 [ $m -gt 0 ] && up="${m}m $up"
 [ $h -gt 0 ] && up="${h}h $up"
+[ $d -gt 0 ] && up="${d}d $up"
 
 # cpu
 while read -r line; do case $line in vendor_id*) vendor="${line##*: } ";; model\ name*) cpu=${line##*: }; break;; esac
@@ -53,22 +55,25 @@ wm="${wm%%\"}"
 [ $TERM = linux ] && term=$(tty) || term=${TERM%%-*}
 
 print() {
-	printf "\033[1;%sm%12s\033[39m%s\033[0m\033[39m%s\n\033[0m" \
-		            "$1" "$2"     "${4:- | }"       "$3"
+	printf "\033[1;%sm%-10s\033[39m%s\033[0m\033[39m%s\n\033[0m" \
+		            "$1"  "$2"     "  $sep  "       "$3"
 }
 
-col="35"
+printf "%s \033[1;%sm%s\033[0m, %s \033[1;%sm%s.\n" hello 35 $USER i\'m 31 "$hostname"
+
 echo
-print 95 "$USER" "$hostname" " @ "
-print $col distro "$PRETTY_NAME"
-print $col kernel "$kernel"
-print $col shell "${SHELL##*/}"
-print $col packages "$pkgs"
-print $col uptime "$up"
-print $col system "$sys ${board% GAMING}"
-print $col processor "$cpu"
-print $col graphics "$gpu"
-print $col memory "$mem"
-print $col habitat "$wm"
-print $col terminal "$term"
+sep="~"
+print 35 distri   "$PRETTY_NAME"
+print 35 kernel   "Linux $kernel"
+print 35 shell    "$SHELL"
+print 35 packages "$pkgs"
+print 35 habitat  "$wm"
+print 35 terminal "$term"
+
 echo
+sep=">"
+print 31 body     "$sys $board"
+print 31 brainz   "$cpu"
+print 31 eyez     "$gpu"
+print 31 glia     "${mem}MB"
+print 31 awake    "$up"

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+echo "iran" > /tmp/test.out
+case $1 in
+  a) mpv /home/wael/.local/share/txt/vine.m4a --force-window=no ;;
+  r) mpv /home/wael/.local/share/txt/eniv.m4a --force-window=no ;;
+esac

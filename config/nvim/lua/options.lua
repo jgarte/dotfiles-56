@@ -1,8 +1,8 @@
 local opt = vim.opt
 
 -- functionality
-opt.title         = false
-opt.wrap          = true 
+opt.title         = true
+opt.wrap          = true
 opt.mouse         = "a"
 opt.clipboard     = "unnamedplus"
 opt.guicursor     = ""

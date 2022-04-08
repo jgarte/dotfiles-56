@@ -38,11 +38,27 @@ google.com/search?q=
 merriam-webster.com/dictionary/
 '
 
-engine=$(dmenu -p "engine" <<< $url)
-[ -z "$engine" ] && exit 0
+  engine=$(dmenu -p "engine" <<< $url)
+  [ -z "$engine" ] && exit 0
+  
+  query=$(:|dmenu -p "search")
+  [ -n "$query" ] && xdg-open "https://${engine}${query}" 2> /dev/null
+}
 
-query=$(:|dmenu -p "search")
-[ -n "$query" ] && xdg-open "https://${engine}${query}" 2> /dev/null
+scrcap() { 
+  opts=$'normal\nfast\nwindow\nqrcode\nscreen'
+  case $(dmenu -p "scrcap" <<< "$opts") in
+   normal) flameshot gui ;;
+   fast) flameshot gui -s -c ;;
+   window)
+      win=$(xdotool getactivewindow)
+      eval $(xdotool getwindowgeometry --shell $win)
+      flameshot gui --region ${WIDTH}x${HEIGHT}+${X}+${Y}
+  ;;
+  screen)
+    flameshot screen --number -c
+  ;;
+  esac
 }
 
 [ ! -z $1 ] && $1 || $(dmenu -p function <<< $(compgen -A function))

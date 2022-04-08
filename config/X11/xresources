@@ -1,9 +1,9 @@
 Xft.dpi:        96
-Xft.antialias:  true
-Xft.hinting:    true
-Xft.autohint:   true
 Xft.rgba:       rgb
-Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintslight
+Xft.hinting:    true
+Xft.antialias:  true
+Xft.autohint:   false
 
 #include "/home/wael/.config/X11/tokyodark"

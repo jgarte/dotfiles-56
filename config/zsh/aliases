@@ -37,6 +37,7 @@ alias rl='exec zsh'
 alias kwrwp='WINEPREFIX=~/.local/share/grapejuice/prefixes/player wineserver -k'
 alias qmkflash='doas qmk flash --keyboard idobao/id75/v1 --keymap wael'
 alias qmkkeymap='qmk json2c keyboards/idobao/id75/keymaps/wael/*.json -o keyboards/idobao/id75/keymaps/wael/keymap.c'
+alias csmp='doas make {uninstall,clean,install} && doas make clean'
 
 ## edit
 alias e='$EDITOR'
